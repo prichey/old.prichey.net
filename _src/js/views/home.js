@@ -1,0 +1,47 @@
+var THREE = require('three');
+var $ = require('jquery');
+require('jquery-mousewheel')($);
+// require('hammer');
+
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera( 75, 1, 0.1, 100000 );
+
+$(document).ready(function() {
+    var $container = $('.cube-wrap');
+    var renderer, geometry, material, cube;
+
+    renderer = new THREE.WebGLRenderer({alpha: true});
+    renderer.setSize( $container.height(), $container.height() );
+    $container.append(renderer.domElement);
+
+    geometry = new THREE.BoxGeometry( 3, 3, 3 );
+
+    material = new THREE.MeshBasicMaterial( { color: 0xaaaaaa, wireframe: true } );
+    cube = new THREE.Mesh( geometry, material );
+    scene.add( cube );
+
+    camera.position.z = 5;
+
+    function render() {
+        requestAnimationFrame( render );
+        renderer.render( scene, camera );
+    }
+
+    render();
+
+    $('body').on('mousewheel', function(event) {
+        console.log(event.deltaX, event.deltaY);
+        // cube.rotation.x += 0.05;
+        // cube.rotation.y += 0.05;
+        cube.rotation.x += event.deltaY / 50;
+        cube.rotation.y += event.deltaX / -50;
+    });
+
+    // $('body').on('touchmove', function(event) {
+    //     console.log(event);
+    //     // cube.rotation.x += 0.05;
+    //     // cube.rotation.y += 0.05;
+    //     // cube.rotation.x += event.deltaY / 50;
+    //     // cube.rotation.y += event.deltaX / -50;
+    // });
+});

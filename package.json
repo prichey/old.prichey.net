@@ -1,0 +1,40 @@
+{
+  "name": "prichey.net",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prichey/prichey.net.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prichey/prichey.net/issues"
+  },
+  "homepage": "https://github.com/prichey/prichey.net#readme",
+  "devDependencies": {
+    "browserify-ejs": "0.0.2",
+    "browserify-shim": "^3.8.11",
+    "gulp": "^3.9.0",
+    "gulp-eta": "^0.5.1"
+  },
+  "browser": {
+    "waitFor": "./_src/js/lib/waitFor.js"
+  },
+  "browserify-shim": {
+    "jquery": "global:$"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "hammer": "0.0.5",
+    "jquery": "^2.1.4",
+    "jquery-mousewheel": "^3.1.13",
+    "sassqwatch": "^0.7.4",
+    "three": "^0.73.0",
+    "twig": "^0.8.2"
+  }
+}
