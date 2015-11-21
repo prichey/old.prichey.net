@@ -10,4 +10,11 @@ config.scaffold = {
   }
 };
 
+config.browserSync = {
+    settings: {
+        server: false,
+        proxy: 'localhost:8080/'
+    }
+}
+
 eta(gulp, config);

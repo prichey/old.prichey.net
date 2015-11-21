@@ -1,12 +1,14 @@
+var waitFor = require('waitFor');
 var THREE = require('three');
 var $ = require('jquery');
 require('jquery-mousewheel')($);
-// require('hammer');
+var Hammer = require('hammerjs');
+require('../lib/jquery.hammer.js');
 
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 75, 1, 0.1, 100000 );
 
-$(document).ready(function() {
+waitFor('body.home', function() {
     var $container = $('.cube-wrap');
     var renderer, geometry, material, cube;
 
@@ -30,12 +32,17 @@ $(document).ready(function() {
     render();
 
     $('body').on('mousewheel', function(event) {
-        console.log(event.deltaX, event.deltaY);
-        // cube.rotation.x += 0.05;
-        // cube.rotation.y += 0.05;
         cube.rotation.x += event.deltaY / 50;
         cube.rotation.y += event.deltaX / -50;
     });
+
+    var mc = $('body.home')
+            .hammer()
+            .on("panmove", function(ev) {
+                console.log(ev.gesture);
+                cube.rotation.x += ev.gesture.deltaY / 500;
+                cube.rotation.y += ev.gesture.deltaX / -500;
+            });
 
     // $('body').on('touchmove', function(event) {
     //     console.log(event);
