@@ -1,0 +1,22 @@
+{% extends 'layout.twig' %}
+
+{% block title %} | about{% endblock %}
+{% block body_classes %}about{% endblock %}
+{% block html_classes %}about{% endblock %}
+
+{% block content %}
+    <section class="about-main container">
+        <h3>About me</h3>
+        <p>I'm a full-stack developer for <a href="http://www.40digits.com/">40Digits</a> in KC. I grew up in Wichita, KS, and got degrees in Computer Science and Spanish from Missouri State University in Springfield. Outside of programming, I enjoy <a href="https://www.strava.com/athletes/6928920">cycling</a>, drinking yerba mate, saying "<span class="italic">y'all</span>", and wishing I were better at <a href="https://en.wikipedia.org/wiki/Go_(game)">Go</a>. {# I'm <a href="http://www.last.fm/user/prichey">currently</a> listening to <span class="song-title italic">Song Title</span> by <span class="artist">Artist</span>.  #} I'm available for <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#112;&#114;&#101;&#115;&#116;&#111;&#110;&#108;&#101;&#101;&#114;&#105;&#099;&#104;&#101;&#121;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;">freelance</a> and can already tell we'd get along swimmingly.</p>
+
+        <h3>About this site</h3>
+        <p>This <a href="http://github.com/prichey/prichey.net">site</a> is a simple Express app running on a DigitalOcean droplet, hosted on a server somewhere in New York. I used 40Digits' own <a href="https://github.com/40Digits/gulp-eta">gulp-eta</a> to set up much of the build pipeline (via <a href="http://gulpjs.com/">gulp</a>) and asset boilerplate. The cube on the front page is powered by <a href="http://threejs.org/">three.js</a>, which I am shitty at but very interested in getting better.</p>
+    </section>
+{% endblock %}
+
+{% block footer_links %}
+    <ul class="links">
+        <li><a href="/">home</a></li>
+        <li><a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#112;&#114;&#101;&#115;&#116;&#111;&#110;&#108;&#101;&#101;&#114;&#105;&#099;&#104;&#101;&#121;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;">email</a></li>
+    </ul>
+{% endblock %}

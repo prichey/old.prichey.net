@@ -33,7 +33,105 @@
     })(Hammer.Manager.prototype.emit);
 }));
 
-},{"hammerjs":4,"jquery":6}],2:[function(require,module,exports){
+},{"hammerjs":6,"jquery":8}],2:[function(require,module,exports){
+/*!
+ * jQuery throttle / debounce - v1.1 - 3/7/2010
+ * http://benalman.com/projects/jquery-throttle-debounce-plugin/
+ *
+ * Copyright (c) 2010 "Cowboy" Ben Alman
+ * Dual licensed under the MIT and GPL licenses.
+ * http://benalman.com/about/license/
+ */
+
+(function(jQuery){
+  '$:nomunge'; // Used by YUI compressor.
+
+  var $ = jQuery,
+      jq_throttle;
+
+  $.throttle = jq_throttle = function( delay, no_trailing, callback, debounce_mode ) {
+    // After wrapper has stopped being called, this timeout ensures that
+    // `callback` is executed at the proper times in `throttle` and `end`
+    // debounce modes.
+    var timeout_id,
+
+      // Keep track of the last time `callback` was executed.
+      last_exec = 0;
+
+    // `no_trailing` defaults to falsy.
+    if ( typeof no_trailing !== 'boolean' ) {
+      debounce_mode = callback;
+      callback = no_trailing;
+      no_trailing = undefined;
+    }
+
+    // The `wrapper` function encapsulates all of the throttling / debouncing
+    // functionality and when executed will limit the rate at which `callback`
+    // is executed.
+    function wrapper() {
+      var that = this,
+        elapsed = +new Date() - last_exec,
+        args = arguments;
+
+      // Execute `callback` and update the `last_exec` timestamp.
+      function exec() {
+        last_exec = +new Date();
+        callback.apply( that, args );
+      };
+
+      // If `debounce_mode` is true (at_begin) this is used to clear the flag
+      // to allow future `callback` executions.
+      function clear() {
+        timeout_id = undefined;
+      };
+
+      if ( debounce_mode && !timeout_id ) {
+        // Since `wrapper` is being called for the first time and
+        // `debounce_mode` is true (at_begin), execute `callback`.
+        exec();
+      }
+
+      // Clear any existing timeout.
+      timeout_id && clearTimeout( timeout_id );
+
+      if ( debounce_mode === undefined && elapsed > delay ) {
+        // In throttle mode, if `delay` time has been exceeded, execute
+        // `callback`.
+        exec();
+
+      } else if ( no_trailing !== true ) {
+        // In trailing throttle mode, since `delay` time has not been
+        // exceeded, schedule `callback` to execute `delay` ms after most
+        // recent execution.
+        //
+        // If `debounce_mode` is true (at_begin), schedule `clear` to execute
+        // after `delay` ms.
+        //
+        // If `debounce_mode` is false (at end), schedule `callback` to
+        // execute after `delay` ms.
+        timeout_id = setTimeout( debounce_mode ? clear : exec, debounce_mode === undefined ? delay - elapsed : delay );
+      }
+    };
+
+    // Set the guid of `wrapper` function to the same of original callback, so
+    // it can be removed in jQuery 1.4+ .unbind or .die by using the original
+    // callback as a reference.
+    if ( $.guid ) {
+      wrapper.guid = callback.guid = callback.guid || $.guid++;
+    }
+
+    // Return the wrapper function.
+    return wrapper;
+  };
+
+  $.debounce = function( delay, at_begin, callback ) {
+    return callback === undefined
+      ? jq_throttle( delay, at_begin, false )
+      : jq_throttle( delay, callback, at_begin !== false );
+  };
+
+})($);
+},{}],3:[function(require,module,exports){
 /**
  * waitFor
  * @param  {String}   selector DOM element to check for on every page load
@@ -47,10 +145,26 @@ module.exports = function(selector, callback) {
     return false;
   }
 };
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
+var waitFor = require('waitFor');
+require('../lib/jquery.throttle-debounce');
+
+waitFor('body', function() {
+    var $header = $('header.main-header'),
+        $footer = $('footer.main-footer'),
+        $main = $('main.root');
+
+    function adjustMainPadding() {
+        $main.css('padding-top', $header.outerHeight(true) + 20);
+        $main.css('padding-bottom', $footer.outerHeight(true) + 20);
+    }
+
+    adjustMainPadding();
+    $(window).resize($.throttle(100, adjustMainPadding));
+});
+},{"../lib/jquery.throttle-debounce":2,"waitFor":3}],5:[function(require,module,exports){
 var waitFor = require('waitFor');
 var THREE = require('three');
-var $ = require('jquery');
 var sassqwatch = require('sassqwatch');
 require('jquery-mousewheel')($);
 var Hammer = require('hammerjs');
@@ -98,7 +212,7 @@ waitFor('body.home', function() {
 
 
 });
-},{"../lib/jquery.hammer.js":1,"hammerjs":4,"jquery":6,"jquery-mousewheel":5,"sassqwatch":13,"three":14,"waitFor":2}],4:[function(require,module,exports){
+},{"../lib/jquery.hammer.js":1,"hammerjs":6,"jquery-mousewheel":7,"sassqwatch":15,"three":16,"waitFor":3}],6:[function(require,module,exports){
 /*! Hammer.JS - v2.0.4 - 2014-09-28
  * http://hammerjs.github.io/
  *
@@ -2563,7 +2677,7 @@ if (typeof define == TYPE_FUNCTION && define.amd) {
 
 })(window, document, 'Hammer');
 
-},{}],5:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 /*!
  * jQuery Mousewheel 3.1.13
  *
@@ -2786,7 +2900,7 @@ if (typeof define == TYPE_FUNCTION && define.amd) {
 
 }));
 
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -11998,7 +12112,7 @@ return jQuery;
 
 }));
 
-},{}],7:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 /**
  * Returns an element object from an element identifier
  * @param  {String} el An element identifier – Must be a class or ID reference
@@ -12018,7 +12132,7 @@ module.exports = function(el) {
     return el;
   }
 };
-},{}],8:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /**
  * Returns a new merged object from two objects
  * @param  {Object} obj1 The object to extend
@@ -12033,7 +12147,7 @@ module.exports = function(obj1, obj2) {
   }
   return obj1;
 }
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 // Production steps of ECMA-262, Edition 5, 15.4.4.18
 // Reference: http://es5.github.io/#x15.4.4.18
 if (!Array.prototype.forEach) {
@@ -12092,7 +12206,7 @@ if (!Array.prototype.forEach) {
     // 8. return undefined
   };
 }
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 /**
  * Returns the data attribute labels and values from a given element
  * @param  {Element} $el The element to get the data
@@ -12117,7 +12231,7 @@ module.exports = function($el) {
     return data;
   }
 }
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 /**
  * Preload an image and call a function onload
  * @param  {String}   src      The source url to preload
@@ -12146,7 +12260,7 @@ var preloader = function(src, obj, callback) {
 };
 
 module.exports = preloader;
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 /**
  * Module to automatically swap image src's across css @media breakpoints
  * @param  {Object} options Options for module
@@ -12331,7 +12445,7 @@ module.exports = function(options) {
 
   return sassqwatch;
 };
-},{"./elementify":7,"./extend":8,"./getData":10,"./preloader":11,"./sassqwatch":13}],13:[function(require,module,exports){
+},{"./elementify":9,"./extend":10,"./getData":12,"./preloader":13,"./sassqwatch":15}],15:[function(require,module,exports){
 // Polyfills
 require('./forEach');
 
@@ -12586,7 +12700,7 @@ var constructor = function() {
 }.call();
 
 module.exports = constructor;
-},{"./forEach":9,"./responsiveImages":12}],14:[function(require,module,exports){
+},{"./forEach":11,"./responsiveImages":14}],16:[function(require,module,exports){
 var self = self || {};// File:src/Three.js
 
 /**
@@ -48775,4 +48889,4 @@ if (typeof exports !== 'undefined') {
   this['THREE'] = THREE;
 }
 
-},{}]},{},[3]);
+},{}]},{},[5,4]);

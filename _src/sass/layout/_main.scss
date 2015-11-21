@@ -2,8 +2,44 @@
 // Main
 // ================================
 
+html,
+body,
+.root {
+    height: 100%;
+    width: 100%;
+}
+
+html,
+body {
+    overflow: hidden;
+}
+
 body {
     font-family: 'Courier New', monospace;
+}
+
+.root {
+    overflow-y: scroll;
+    word-wrap: break-word;
+    font-size: rem(18px);
+    line-height: 1.5;
+}
+
+.container {
+    padding-left: rem(20px);
+    padding-right: rem(20px);
+    max-width: rem(800px);
+    margin: 0 auto;
+
+    @include mq(small) {
+        padding-left: rem(40px);
+        padding-right: rem(40px);
+    }
+
+    @include mq(large) {
+        padding-left: rem(60px);
+        padding-right: rem(60px);
+    }
 }
 
 .abs-container {
@@ -20,4 +56,54 @@ body {
         margin-top: rem(20px);
         margin-bottom: rem(20px);
     }
+}
+
+// Typography
+a {
+    border-bottom: 2px solid transparent;
+    color: setcolor(blue);
+
+    &:hover {
+        color: setcolor(gray);
+        border-color: setcolor(gray);
+    }
+}
+
+h2,
+h3,
+h4 {
+    margin-bottom: 0.5em;
+}
+
+h2 {
+    font-size: rem(22px);
+
+    @include mq(medium) {
+        font-size: rem(24px);
+    }
+}
+
+h3 {
+    font-size: rem(20px);
+
+    @include mq(medium) {
+        font-size: rem(22px);
+    }
+}
+
+p {
+    margin-bottom: 1em;
+    font-size: rem(18px);
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.italic {
+    font-style: italic;
+}
+
+.bold {
+    font-weight: bold;
 }

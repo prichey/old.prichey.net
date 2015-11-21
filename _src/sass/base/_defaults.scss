@@ -76,8 +76,13 @@ dd {
 	font-style: normal;
 }
 
-li {
-	line-height: 1;
+ul,
+ol {
+	margin-left: 1em;
+
+	@include mq(medium) {
+		margin-left: 1.5em;
+	}
 }
 
 // --------------------------------

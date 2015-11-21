@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <!--[if lte IE 9]><html class="no-js lt-ie10"><![endif]-->
-<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<!--[if gt IE 9]><!--><html class="{{ 'no-js ' ~ title }}" lang="en"><!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>plr{% block title %}{% endblock %}</title>
+    <title>{{ 'plr | ' ~ title }}</title>
 
     <script>
         // ;)
@@ -22,27 +22,23 @@
         window.config = window.config || {};
     </script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <link rel="stylesheet" href="css/style.css" media="screen" />
+
     {% block head %}{% endblock %}
 </head>
 
-<body class="{% block body_classes %}{% endblock %}" id="body">
+<body class="{{ title }}">
     <header class="main-header abs-container">
         <h1 class="name">preston lee richey</h1>
     </header>
 
-    <main role="main" class="root">
+    <main role="main" class="{{ 'root ' ~ title }}">
         {% block content %}{% endblock %}
     </main>
 
     <footer class="main-footer abs-container">
-        <ul class="links">
-            {#
-            <li><a href="/about">about</a></li>
-            <li><a href="/projects">projects</a></li>
-             #}
-            <li><a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#112;&#114;&#101;&#115;&#116;&#111;&#110;&#108;&#101;&#101;&#114;&#105;&#099;&#104;&#101;&#121;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;">email</a></li>
-        </ul>
+        {% block footer_links %}{% endblock %}
     </footer>
 
     <script src="js/main.js"></script>

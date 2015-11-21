@@ -1,6 +1,5 @@
 var waitFor = require('waitFor');
 var THREE = require('three');
-var $ = require('jquery');
 var sassqwatch = require('sassqwatch');
 require('jquery-mousewheel')($);
 var Hammer = require('hammerjs');

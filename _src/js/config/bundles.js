@@ -9,7 +9,11 @@ module.exports = [
   {
     outputName: 'main.js',
     entries: [
+      // views
       './views/home',
+
+      // modules
+      './modules/page'
     ]
   },
   // {
