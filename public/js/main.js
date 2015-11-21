@@ -56,12 +56,12 @@ require('jquery-mousewheel')($);
 var Hammer = require('hammerjs');
 require('../lib/jquery.hammer.js');
 
-var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera( 75, 1, 0.1, 100000 );
-
 waitFor('body.home', function() {
+    var scene, camera, renderer, geometry, material, cube;
     var $container = $('.cube-wrap');
-    var renderer, geometry, material, cube;
+
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera( 75, 1, 0.1, 100000 );
 
     renderer = new THREE.WebGLRenderer({alpha: true});
     renderer.setSize( $container.height(), $container.height() );
@@ -88,10 +88,9 @@ waitFor('body.home', function() {
             cube.rotation.y += event.deltaX / -50;
         });
     } else {
-        var bodyHammer = $('body.home')
+        $('body.home')
                 .hammer()
                 .on("panmove", function(ev) {
-                    console.log(ev.gesture);
                     cube.rotation.x += ev.gesture.deltaY / 500;
                     cube.rotation.y += ev.gesture.deltaX / -500;
                 });
