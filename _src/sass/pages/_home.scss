@@ -11,49 +11,13 @@ body.home,
 }
 
 .home {
-    .name,
-    .cube-wrap,
-    .links {
+    .cube-wrap {
         position: absolute;
         display: block;
-    }
-
-    .name,
-    .links {
-        width: 100%;
-        text-align: center;
-    }
-
-    .name {
-        top: 5%;
-        text-transform: lowercase;
-        font-size: 32px;
-    }
-
-    .cube-wrap {
         width: 50vh;
         height: 50vh;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-    }
-
-    .links {
-        @extend %naked-list;
-        bottom: 5%;
-        font-size: 18px;
-
-        li {
-            display: inline-block;
-
-            &:after {
-                content: ' | ';
-                display: inline;
-            }
-
-            &:last-child:after {
-                display: none;
-            }
-        }
     }
 }

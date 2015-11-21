@@ -27,18 +27,23 @@
 </head>
 
 <body class="{% block body_classes %}{% endblock %}" id="body">
-    {#
-    <header class="main-header"></header>
-     #}
+    <header class="main-header abs-container">
+        <h1 class="name">preston lee richey</h1>
+    </header>
 
     <main role="main" class="root">
         {% block content %}{% endblock %}
     </main>
 
-    {#
-    <footer class="main-footer"></footer>
-     #}
-
+    <footer class="main-footer abs-container">
+        <ul class="links">
+            {#
+            <li><a href="/about">about</a></li>
+            <li><a href="/projects">projects</a></li>
+             #}
+            <li><a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#112;&#114;&#101;&#115;&#116;&#111;&#110;&#108;&#101;&#101;&#114;&#105;&#099;&#104;&#101;&#121;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;">email</a></li>
+        </ul>
+    </footer>
 
     <script src="js/main.js"></script>
 </body>

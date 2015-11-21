@@ -1,6 +1,7 @@
 var waitFor = require('waitFor');
 var THREE = require('three');
 var $ = require('jquery');
+var sassqwatch = require('sassqwatch');
 require('jquery-mousewheel')($);
 var Hammer = require('hammerjs');
 require('../lib/jquery.hammer.js');
@@ -31,24 +32,20 @@ waitFor('body.home', function() {
 
     render();
 
-    $('body').on('mousewheel', function(event) {
-        cube.rotation.x += event.deltaY / 50;
-        cube.rotation.y += event.deltaX / -50;
-    });
+    if (sassqwatch.isAbove('mq-medium')) {
+        $('body').on('mousewheel', function(event) {
+            cube.rotation.x += event.deltaY / 50;
+            cube.rotation.y += event.deltaX / -50;
+        });
+    } else {
+        var bodyHammer = $('body.home')
+                .hammer()
+                .on("panmove", function(ev) {
+                    console.log(ev.gesture);
+                    cube.rotation.x += ev.gesture.deltaY / 500;
+                    cube.rotation.y += ev.gesture.deltaX / -500;
+                });
+    }
 
-    var mc = $('body.home')
-            .hammer()
-            .on("panmove", function(ev) {
-                console.log(ev.gesture);
-                cube.rotation.x += ev.gesture.deltaY / 500;
-                cube.rotation.y += ev.gesture.deltaX / -500;
-            });
 
-    // $('body').on('touchmove', function(event) {
-    //     console.log(event);
-    //     // cube.rotation.x += 0.05;
-    //     // cube.rotation.y += 0.05;
-    //     // cube.rotation.x += event.deltaY / 50;
-    //     // cube.rotation.y += event.deltaX / -50;
-    // });
 });

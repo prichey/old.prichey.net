@@ -1,3 +1,24 @@
 // ================================
 // Footer
 // ================================
+
+.main-footer {
+    bottom: 0;
+    .links {
+        @extend %naked-list;
+        font-size: 18px;
+
+        li {
+            display: inline-block;
+
+            &:after {
+                content: ' | ';
+                display: inline;
+            }
+
+            &:last-child:after {
+                display: none;
+            }
+        }
+    }
+}

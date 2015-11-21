@@ -1,3 +1,11 @@
 // ================================
 // Header
 // ================================
+
+.main-header {
+    top: 0;
+    .name {
+        text-transform: lowercase;
+        font-size: 32px;
+    }
+}

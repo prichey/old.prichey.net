@@ -2,6 +2,22 @@
 // Main
 // ================================
 
-main {
+body {
+    font-family: 'Courier New', monospace;
+}
 
+.abs-container {
+    background-color: white;
+    position: absolute;
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: rem(20px);
+    @include cf;
+    z-index: 5;
+
+    @include mq(medium) {
+        margin-top: rem(20px);
+        margin-bottom: rem(20px);
+    }
 }
