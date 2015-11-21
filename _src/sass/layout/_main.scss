@@ -25,6 +25,14 @@ body {
     line-height: 1.5;
 }
 
+.chunk {
+    margin-bottom: 2em;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
 .container {
     padding-left: rem(20px);
     padding-right: rem(20px);
