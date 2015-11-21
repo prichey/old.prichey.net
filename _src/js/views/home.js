@@ -2,8 +2,8 @@ var waitFor = require('waitFor');
 var THREE = require('three');
 var sassqwatch = require('sassqwatch');
 require('jquery-mousewheel')($);
-var Hammer = require('hammerjs');
-require('../lib/jquery.hammer.js');
+// var Hammer = require('hammerjs');
+// require('../lib/jquery.hammer.js');
 
 waitFor('body.home', function() {
     var scene, camera, renderer, geometry, material, cube;
@@ -31,19 +31,24 @@ waitFor('body.home', function() {
 
     render();
 
-    if (sassqwatch.isAbove('mq-medium')) {
-        $('body').on('mousewheel', function(event) {
-            cube.rotation.x += event.deltaY / 50;
-            cube.rotation.y += event.deltaX / -50;
-        });
-    } else {
-        $('body.home')
-                .hammer()
-                .on("panmove", function(ev) {
-                    cube.rotation.x += ev.gesture.deltaY / 500;
-                    cube.rotation.y += ev.gesture.deltaX / -500;
-                });
-    }
+    // if (sassqwatch.isAbove('mq-medium')) {
+    //     $('body').on('mousewheel', function(event) {
+    //         cube.rotation.x += event.deltaY / 50;
+    //         cube.rotation.y += event.deltaX / -50;
+    //     });
+    // } else {
+    //     $('body.home')
+    //             .hammer()
+    //             .on("panmove", function(ev) {
+    //                 cube.rotation.x += ev.gesture.deltaY / 500;
+    //                 cube.rotation.y += ev.gesture.deltaX / -500;
+    //             });
+    // }
+
+    $('body').on('mousewheel', function(event) {
+        cube.rotation.x += event.deltaY / 50;
+        cube.rotation.y += event.deltaX / -50;
+    });
 
 
 });
