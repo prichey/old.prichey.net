@@ -39,20 +39,12 @@ body {
 }
 
 .container {
-    padding-left: rem(20px);
-    padding-right: rem(20px);
+    @extend %container;
     max-width: rem(800px);
-    margin: 0 auto;
+}
 
-    @include mq(small) {
-        padding-left: rem(40px);
-        padding-right: rem(40px);
-    }
-
-    @include mq(large) {
-        padding-left: rem(60px);
-        padding-right: rem(60px);
-    }
+.container-large {
+    @extend %container;
 }
 
 .abs-container {

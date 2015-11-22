@@ -1,0 +1,26 @@
+// ================================
+// Error
+// ================================
+
+.error-main {
+    .wizard {
+        display: block;
+        margin: 0 auto 20px;
+
+        @include mq(medium) {
+            margin-bottom: rem(40px);
+        }
+
+        // @include mq(large) {
+        //     margin-bottom: rem(60px);
+        // }
+    }
+
+    .error-message {
+        text-align: center;
+    }
+
+    pre {
+        font-size: rem(14px);
+    }
+}
