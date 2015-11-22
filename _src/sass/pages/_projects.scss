@@ -1,0 +1,13 @@
+// ================================
+// Projects
+// ================================
+
+.projects-main {}
+
+.projects-list {
+    @extend %naked-list;
+
+    > li {
+        @include cf;
+    }
+}
