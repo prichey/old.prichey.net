@@ -20,7 +20,6 @@ router.get('/', function (req, res, next) {
 
     rp(lastfmOpts)
         .then(function (resp) {
-            // console.log(resp);
             var song = getLastSongFromResponse(resp);
             res.render('about', {
                 title: 'about',
@@ -34,26 +33,6 @@ router.get('/', function (req, res, next) {
             });
         });
 });
-
-// use a promise
-function getLastSong() {
-    request('http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=prichey&api_key=d2e1283a31bd5b2c450f7ed61cf9ab2e&format=json&limit=1', function(error, response, body) {
-        if (!error && response.statusCode == 200) {
-            var body = JSON.parse(body);
-            console.log(body.recenttracks);
-            var returnSong = {
-                'title': body.recenttracks.track[0].name,
-                'artist': body.recenttracks.track[0].artist
-            };
-            console.log('returning', returnSong);
-            return returnSong;
-        } else {
-            console.log('returning nothing');
-            return {};
-        }
-    });
-    return body;
-}
 
 function getLastSongFromResponse(resp) {
     var returnObj = {};
