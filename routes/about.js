@@ -24,14 +24,12 @@ router.get('/', function(req, res, next) {
 			res.render('about', {
 				title: 'about',
 				song: song,
-        age: getAge()
 			});
 		})
 		.catch(function(err) {
 			// API call failed...
 			res.render('about', {
 				title: 'about',
-        age: getAge()
 			});
 		});
 });
@@ -47,20 +45,5 @@ function getLastSongFromResponse(resp) {
 	return returnObj;
 }
 
-function getAge() {
-  var age = Math.round(daysBetween(new Date(1992, 3, 11), Date.now()) / 365.25 * 100) / 100;
-  return age;
-}
-
-function treatAsUTC(date) {
-  var result = new Date(date);
-  result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
-  return result;
-}
-
-function daysBetween(startDate, endDate) {
-  var millisecondsPerDay = 24 * 60 * 60 * 1000;
-  return (treatAsUTC(endDate) - treatAsUTC(startDate)) / millisecondsPerDay;
-}
 
 module.exports = router;
