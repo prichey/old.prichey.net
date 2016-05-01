@@ -23,12 +23,14 @@ router.get('/', function(req, res, next) {
 			var song = getLastSongFromResponse(resp);
 			res.render('about', {
 				title: 'about',
+				header: 'preston lee richey',
 				song: song,
 			});
 		})
 		.catch(function(err) {
 			// API call failed...
 			res.render('about', {
+				header: 'preston lee richey',
 				title: 'about',
 			});
 		});

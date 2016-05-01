@@ -1,0 +1,25 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+  <section class="gbmf-main container">
+    <div class="chunk">
+      {% for image in images %}
+      <img
+      src="{{ image.url }}"
+      data-id="{{ image.id }}"
+      data-latitude="{{ image.location.latitude }}"
+      data-longitude="{{ image.location.longitude }}" alt="" />
+      {% endfor %}
+      <pre style="font-size: 12px;">
+      </pre>
+    </div>
+  </section>
+
+{% endblock %}
+
+{% block footer_links %}
+  <ul class="links">
+    <li><a href="/">home</a></li>
+    <li><a href="/about">about</a></li>
+  </ul>
+{% endblock %}
