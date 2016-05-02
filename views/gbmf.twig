@@ -1,20 +1,27 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-  <section class="gbmf-main container">
-    <div class="chunk">
-      {% for image in images %}
-      <img
-      src="{{ image.url }}"
-      data-id="{{ image.id }}"
-      data-latitude="{{ image.location.latitude }}"
-      data-longitude="{{ image.location.longitude }}" alt="" />
-      {% endfor %}
-      <pre style="font-size: 12px;">
-      </pre>
+  <section class="gbmf-main">
+    <div class="gbmf-images-wrap abs-height-padded">
+      <ul class="gbmf-images">
+        {% for image in images %}
+        <li class="gbmf-image">
+          <img
+          src="{{ image.url }}"
+          data-id="{{ image.id }}"
+          data-latitude="{{ image.location.latitude }}"
+          data-longitude="{{ image.location.longitude }}" alt="" />
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="gbmf-map-wrap">
+      <div id="gbmf-map"></div>
     </div>
   </section>
 
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js"></script>
 {% endblock %}
 
 {% block footer_links %}

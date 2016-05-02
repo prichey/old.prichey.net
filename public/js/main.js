@@ -115,19 +115,43 @@ var waitFor = require('waitFor');
 require('../lib/jquery.throttle-debounce');
 
 waitFor('body', function() {
-    var $header = $('header.main-header'),
-        $footer = $('footer.main-footer'),
-        $main = $('main.root');
+  var $header = $('header.main-header'),
+    $footer = $('footer.main-footer'),
+    $main = $('main.root'),
+    $absMain = $('.abs-height-padded');
 
-    function adjustMainPadding() {
-        $main.css('padding-top', $header.outerHeight(true) + 20);
-        $main.css('padding-bottom', $footer.outerHeight(true) + 20);
-    }
+  function adjustMainPadding() {
+    $main.css('padding-top', $header.outerHeight(true));
+    $main.css('padding-bottom', $footer.outerHeight(true));
+  }
 
-    adjustMainPadding();
-    $(window).resize($.throttle(100, adjustMainPadding));
+  function adjustAbsPadding() {
+    $absMain.css('padding-top', $header.outerHeight(true));
+    $absMain.css('padding-bottom', $footer.outerHeight(true));
+  }
+
+  adjustMainPadding();
+  adjustAbsPadding();
+  $(window).resize($.throttle(100, adjustMainPadding));
 });
+
 },{"../lib/jquery.throttle-debounce":1,"waitFor":2}],4:[function(require,module,exports){
+var waitFor = require('waitFor');
+
+waitFor('body.gbmf', function() {
+  var mapOptions = {
+    zoom: 4,
+    center: new google.maps.LatLng(39.50, -98.35),
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    disableDefaultUI: true,
+    mapTypeControl:false,
+    streetViewControl: false
+  };
+
+  map = new google.maps.Map($('#gbmf-map')[0], mapOptions);
+});
+
+},{"waitFor":2}],5:[function(require,module,exports){
 var waitFor = require('waitFor');
 var THREE = require('three');
 var sassqwatch = require('sassqwatch');
@@ -182,7 +206,7 @@ waitFor('body.home', function() {
 
 
 });
-},{"jquery-mousewheel":5,"sassqwatch":12,"three":13,"waitFor":2}],5:[function(require,module,exports){
+},{"jquery-mousewheel":6,"sassqwatch":13,"three":14,"waitFor":2}],6:[function(require,module,exports){
 /*!
  * jQuery Mousewheel 3.1.13
  *
@@ -405,7 +429,7 @@ waitFor('body.home', function() {
 
 }));
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 /**
  * Returns an element object from an element identifier
  * @param  {String} el An element identifier – Must be a class or ID reference
@@ -425,7 +449,7 @@ module.exports = function(el) {
     return el;
   }
 };
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 /**
  * Returns a new merged object from two objects
  * @param  {Object} obj1 The object to extend
@@ -440,7 +464,7 @@ module.exports = function(obj1, obj2) {
   }
   return obj1;
 }
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 // Production steps of ECMA-262, Edition 5, 15.4.4.18
 // Reference: http://es5.github.io/#x15.4.4.18
 if (!Array.prototype.forEach) {
@@ -499,7 +523,7 @@ if (!Array.prototype.forEach) {
     // 8. return undefined
   };
 }
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /**
  * Returns the data attribute labels and values from a given element
  * @param  {Element} $el The element to get the data
@@ -524,7 +548,7 @@ module.exports = function($el) {
     return data;
   }
 }
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 /**
  * Preload an image and call a function onload
  * @param  {String}   src      The source url to preload
@@ -553,7 +577,7 @@ var preloader = function(src, obj, callback) {
 };
 
 module.exports = preloader;
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 /**
  * Module to automatically swap image src's across css @media breakpoints
  * @param  {Object} options Options for module
@@ -738,7 +762,7 @@ module.exports = function(options) {
 
   return sassqwatch;
 };
-},{"./elementify":6,"./extend":7,"./getData":9,"./preloader":10,"./sassqwatch":12}],12:[function(require,module,exports){
+},{"./elementify":7,"./extend":8,"./getData":10,"./preloader":11,"./sassqwatch":13}],13:[function(require,module,exports){
 // Polyfills
 require('./forEach');
 
@@ -993,7 +1017,7 @@ var constructor = function() {
 }.call();
 
 module.exports = constructor;
-},{"./forEach":8,"./responsiveImages":11}],13:[function(require,module,exports){
+},{"./forEach":9,"./responsiveImages":12}],14:[function(require,module,exports){
 var self = self || {};// File:src/Three.js
 
 /**
@@ -37182,4 +37206,4 @@ if (typeof exports !== 'undefined') {
   this['THREE'] = THREE;
 }
 
-},{}]},{},[4,3]);
+},{}]},{},[5,4,3]);
