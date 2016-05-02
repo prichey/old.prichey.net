@@ -13,8 +13,8 @@ waitFor('body', function() {
   }
 
   function adjustAbsPadding() {
-    $absMain.css('padding-top', $header.outerHeight(true));
-    $absMain.css('padding-bottom', $footer.outerHeight(true));
+    $absMain.css('padding-top', $header.outerHeight(true) - 20);
+    $absMain.css('padding-bottom', $footer.outerHeight(true) - 20);
   }
 
   adjustMainPadding();
