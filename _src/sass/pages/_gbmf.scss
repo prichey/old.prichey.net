@@ -17,13 +17,17 @@
 .gbmf-images-wrap {
   @include cf;
   margin: 0;
-  width: calc(50%);
+  width: 100%;
   position: fixed;
   height: 100%;
   overflow-y: scroll;
   padding-left: 2px;
   padding-right: 2px;
   top: 0;
+
+  @include mq(medium) {
+    width: 50%;
+  }
   // left: -2px;
 }
 
@@ -34,6 +38,10 @@
   top: 0;
   right: 0;
   position: fixed;
+
+  @include mq(max-small) {
+    display: none;
+  }
 }
 
 #gbmf-map {
