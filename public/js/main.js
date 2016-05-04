@@ -143,6 +143,7 @@ waitFor('body.gbmf', function() {
   var map,
     idleListener,
     requestUrl = [window.location.protocol, '', window.location.host].join('/'),
+    $imageList = $('.gbmf-images'),
     markers = [];
 
   var initMap = function() {
@@ -252,9 +253,32 @@ waitFor('body.gbmf', function() {
   //   }
   // };
 
+  var initResultClick = function() {
+    // map.setZoom(14);
+    $imageList.on('click tap touch', '.gbmf-image img', function() {
+      var $this = $(this),
+        $results = $('.gbmf-image img');
+
+      // $results.removeClass('selected');
+      // $this.addClass('selected');
+
+      markers.forEach(function(marker) {
+        // marker.setIcon(regularMarker);
+        marker.setZIndex(null);
+
+        if (marker.location.id == $this.data('id')) {
+          // marker.setIcon(selectedMarker);
+          marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
+          map.panTo(marker.getPosition());
+        }
+      });
+    });
+  };
+
   var init = function() {
     if ($(window).width() > 768) {
       initMap();
+      initResultClick();
       addMarkers();
     }
   }
