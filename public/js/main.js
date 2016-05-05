@@ -144,6 +144,9 @@ waitFor('body.gbmf', function() {
     idleListener,
     requestUrl = [window.location.protocol, '', window.location.host].join('/'),
     $imageList = $('.gbmf-images'),
+    $packeryGrid,
+    // selectedMarker = '/images/blue-map-pin.png',
+    // regularMarker = '/images/red-map-pin.png',
     markers = [];
 
   var initMap = function() {
@@ -255,31 +258,52 @@ waitFor('body.gbmf', function() {
 
   var initResultClick = function() {
     // map.setZoom(14);
-    $imageList.on('click tap touch', '.gbmf-image img', function() {
+    $imageList.on('click tap touch', '.gbmf-image', function() {
       var $this = $(this),
-        $results = $('.gbmf-image img');
+        $results = $('.gbmf-image');
 
-      // $results.removeClass('selected');
-      // $this.addClass('selected');
+      if ($this.hasClass('selected')) {
+        $this.removeClass('selected');
+      } else {
+        $results.removeClass('selected');
+        $this.addClass('selected');
+      }
 
       markers.forEach(function(marker) {
         // marker.setIcon(regularMarker);
         marker.setZIndex(null);
 
-        if (marker.location.id == $this.data('id')) {
+        // TODO: figure out where I actually want to put the data
+        if (marker.location.id == $this.find('img').eq(0).data('id')) {
           // marker.setIcon(selectedMarker);
           marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
           map.panTo(marker.getPosition());
         }
       });
+
+      $packeryGrid.packery(); // THIS SHOULD NOT HAVE TO HAPPEN
     });
   };
+
+  var initPackery = function() {
+    $packeryGrid = $('.gbmf-images').imagesLoaded( function() {
+      // init Masonry after all images have loaded
+      // alert('images loaded');
+      $packeryGrid.packery({
+        // options...
+        itemSelector: '.gbmf-image',
+        columnWidth: '.grid-sizer',
+        percentPosition: true
+      });
+    });
+  }
 
   var init = function() {
     if ($(window).width() > 768) {
       initMap();
       initResultClick();
       addMarkers();
+      initPackery();
     }
   }
 

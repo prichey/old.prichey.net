@@ -2,6 +2,8 @@
 // gbmf
 // ================================
 
+* { box-sizing: border-box; }
+
 
 .gbmf-main {
   @include cf;
@@ -58,16 +60,49 @@
 
 .gbmf-images {
   margin: 0;
+  @extend %naked-list;
+  @include cf;
 }
 
+.grid-sizer,
 .gbmf-image {
   width: 25%;
-  display: inline-block;
+}
+
+.gbmf-image, {
   float: left;
+  // display: block;
+  // float: left;
   line-height: 0;
   padding: 2px;
 
   img {
-    display: inline-block;
+    // display: block;
+    display: block;
+    width: 100%;
+  }
+
+  .info {
+    display: none;
+  }
+
+  .info-list {
+    @extend %naked-list;
+  }
+
+  &.selected {
+    width: 100%;
+
+    img,
+    .info {
+      width: 50%;
+      float: left;
+    }
+
+    .info {
+      padding: 8px;
+      display: block;
+      line-height: normal;
+    }
   }
 }
