@@ -6,15 +6,14 @@
       <ul class="gbmf-images">
         <li class="grid-sizer"></li>
         {% for image in images %}
-        <li class="gbmf-image">
-          <img
-          src="{{ image.url }}"
+        <li class="gbmf-image"
           data-id="{{ image.id }}"
           data-latitude="{{ image.location.latitude }}"
-          data-longitude="{{ image.location.longitude }}" alt="" />
+          data-longitude="{{ image.location.longitude }}" >
+          <img src="{{ image.url }}" alt="" />
           <div class="info">
             <ul class="info-list">
-              <li>id: {{ image.id }}</li>
+              <li>{{ image.date }}</li>
               <li>lat: {{ image.location.latitude }}</li>
               <li>lng: {{ image.location.longitude }}</li>
             </ul>

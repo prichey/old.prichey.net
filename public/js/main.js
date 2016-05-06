@@ -145,6 +145,7 @@ waitFor('body.gbmf', function() {
     requestUrl = [window.location.protocol, '', window.location.host].join('/'),
     $imageList = $('.gbmf-images'),
     $packeryGrid,
+    selectedClass = 'selected',
     // selectedMarker = '/images/blue-map-pin.png',
     // regularMarker = '/images/red-map-pin.png',
     markers = [];
@@ -189,6 +190,10 @@ waitFor('body.gbmf', function() {
       marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
       // marker.setIcon(selectedMarker);
       map.panTo(marker.getPosition());
+
+      // $(".gbmf-image").removeClass(selectedClass);
+      $selected = $(".gbmf-image[data-id='" + location.id + "']");
+      $selected.click(); // probably should do this another way lol
     });
 
     markers.push(marker);
@@ -200,7 +205,7 @@ waitFor('body.gbmf', function() {
 
   var getLocations = function() {
     var locations = [];
-    $('.gbmf-images img').each(function(i) {
+    $('.gbmf-image').each(function(i) {
       var $this = $(this);
       if ($this.data('latitude') && $this.data('longitude') && $this.data('id')) {
         locations.push({
@@ -222,51 +227,18 @@ waitFor('body.gbmf', function() {
     });
   };
 
-  // Adds a marker to the map and push to the array.
-  // var addMarker = function(location, selected) {
-  //   icon = !selected ? regularMarker : selectedMarker;
-  //   zindex = !selected ? null : google.maps.Marker.MAX_ZINDEX + 1;
-  //   var marker = new google.maps.Marker({
-  //     position: location,
-  //     map: map,
-  //     icon: icon,
-  //     zIndex: zindex,
-  //   });
-  //   marker.set('location', location);
-  //
-  //   marker.addListener('click', function() {
-  //     markers.forEach(function(marker) {
-  //       marker.setIcon(regularMarker);
-  //       marker.setZIndex(null);
-  //     });
-  //
-  //     marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
-  //     // marker.setIcon(selectedMarker);
-  //     map.panTo(marker.getPosition());
-  //
-  //     // $("li.result").removeClass('selected');
-  //     // $selected = $("li.result-" + location.post_name);
-  //     // $selected.addClass('selected');
-  //   });
-  //
-  //   markers.push(marker);
-  //
-  //   if (selected) {
-  //     map.setCenter(marker.getPosition());
-  //   }
-  // };
-
   var initResultClick = function() {
     // map.setZoom(14);
     $imageList.on('click tap touch', '.gbmf-image', function() {
+      map.setZoom(6);
       var $this = $(this),
         $results = $('.gbmf-image');
 
-      if ($this.hasClass('selected')) {
-        $this.removeClass('selected');
+      if ($this.hasClass(selectedClass)) {
+        $this.removeClass(selectedClass);
       } else {
-        $results.removeClass('selected');
-        $this.addClass('selected');
+        $results.removeClass(selectedClass);
+        $this.addClass(selectedClass);
       }
 
       markers.forEach(function(marker) {
@@ -274,7 +246,7 @@ waitFor('body.gbmf', function() {
         marker.setZIndex(null);
 
         // TODO: figure out where I actually want to put the data
-        if (marker.location.id == $this.find('img').eq(0).data('id')) {
+        if (marker.location.id == $this.data('id')) {
           // marker.setIcon(selectedMarker);
           marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
           map.panTo(marker.getPosition());
@@ -293,7 +265,8 @@ waitFor('body.gbmf', function() {
         // options...
         itemSelector: '.gbmf-image',
         columnWidth: '.grid-sizer',
-        percentPosition: true
+        percentPosition: true,
+        transitionDuration: 0
       });
     });
   }

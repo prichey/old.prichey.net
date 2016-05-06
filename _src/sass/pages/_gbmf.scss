@@ -4,6 +4,14 @@
 
 * { box-sizing: border-box; }
 
+body.gbmf {
+  // temporary!
+  // header,
+  // footer {
+  //   display: none;
+  // }
+}
+
 
 .gbmf-main {
   @include cf;

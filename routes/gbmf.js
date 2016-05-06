@@ -62,7 +62,7 @@ db.once('open', function() {
       });
     };
 
-    function getInfoFromPhotoId(photoId) {
+    function getDateFromPhotoId(photoId) {
       return Q.Promise(function(resolve, reject) {
         flickr.photos.getInfo({
           photo_id: photoId
@@ -71,7 +71,21 @@ db.once('open', function() {
             reject(new Error("Error:" + err));
           }
 
-          resolve(result);
+          // console.log(result);
+
+          var date = result.photo.dates.taken;
+          var returnDate = '';
+          if (!!date) {
+            // date = new Date(date);
+            // returnDate = {
+            //   year: date.year,
+            //   month: date.month,
+            //   day: date.day
+            // }
+            returnDate = date;
+          }
+
+          resolve(returnDate);
         });
       });
     };
@@ -120,11 +134,19 @@ db.once('open', function() {
                     id: photo.id
                   };
 
-                  getLocationFromPhotoId(photo.id)
-                    .then(function(location) {
-                      if (!!location) {
-                        newPhoto.location = location;
+                  getDateFromPhotoId(photo.id)
+                    .then(function(date) {
+                      if (!!date) {
+                        newPhoto.date = date;
                       }
+                    })
+                    .then(function() {
+                      return getLocationFromPhotoId(photo.id)
+                        .then(function(location) {
+                          if (!!location) {
+                            newPhoto.location = location;
+                          }
+                        })
                     })
                     .then(function() {
                       return getUrlFromPhotoId(photo.id)
@@ -132,9 +154,6 @@ db.once('open', function() {
                           newPhoto.url = url;
                         })
                     })
-                    // .then(function() {
-                    //   console.log(newPhoto);
-                    // })
                     .catch(function(err) {
                       console.log('getLocationFromPhotoId error:', err);
                     })
@@ -144,7 +163,7 @@ db.once('open', function() {
                         if (err) {
                           console.log('error saving:', err);
                         } else {
-                          console.log('saved:', newPhoto);
+                          // console.log('saved:', newPhoto);
                         }
                       });
                     });

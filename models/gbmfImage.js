@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 
 var gbmfImageSchema = new mongoose.Schema({
   id: String,
+  date: String,
   url: String,
   location: {
     latitude: Number,
