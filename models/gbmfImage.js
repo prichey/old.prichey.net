@@ -1,0 +1,17 @@
+var mongoose = require("mongoose");
+
+var gbmfImageSchema = new mongoose.Schema({
+  id: String,
+  date: String,
+  url: String,
+  location: {
+    latitude: Number,
+    longitude: Number
+  }
+});
+
+var gbmfImage = mongoose.model('gbmfImage', gbmfImageSchema);
+
+module.exports = {
+  gbmfImage: gbmfImage
+}
