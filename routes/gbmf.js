@@ -90,7 +90,7 @@ db.once('open', function() {
       });
     };
 
-    function getUrlFromPhotoId(photoId, preferredSize) {
+    function getSrcFromPhotoId(photoId, preferredSize) {
       return Q.Promise(function(resolve, reject) {
         flickr.photos.getSizes({
           photo_id: photoId
@@ -115,6 +115,30 @@ db.once('open', function() {
       });
     };
 
+    function getPhotoInfo(photoId) {
+      return Q.Promise(function(resolve, reject) {
+        flickr.photos.getInfo({
+          photo_id: photoId
+        }, function(err, result) {
+          if (err) {
+            reject(new Error("Error:" + err));
+          }
+
+          var photo = result.photo;
+
+          resolve({
+            id: photo.id,
+            location: {
+              latitude: photo.location.latitude,
+              longitude: photo.location.longitude
+            },
+            date: photo.dates.taken,
+            url: photo.urls.url[0]._content,
+          });
+        });
+      });
+    };
+
     if (error) {
       console.log('error:', error);
     }
@@ -130,40 +154,29 @@ db.once('open', function() {
               .then(function(result) {
                 if (result.length == 0) {
                   // console.log('adding new image with id', photo.id);
-                  var newPhoto = {
-                    id: photo.id
-                  };
+                  var newPhoto = {};
 
-                  getDateFromPhotoId(photo.id)
-                    .then(function(date) {
-                      if (!!date) {
-                        newPhoto.date = date;
-                      }
+                  getPhotoInfo(photo.id)
+                    .then(function(photo) {
+                      newPhoto = photo;
                     })
                     .then(function() {
-                      return getLocationFromPhotoId(photo.id)
-                        .then(function(location) {
-                          if (!!location) {
-                            newPhoto.location = location;
-                          }
+                      return getSrcFromPhotoId(photo.id)
+                        .then(function(src) {
+                          newPhoto.src = src;
                         })
-                    })
-                    .then(function() {
-                      return getUrlFromPhotoId(photo.id)
-                        .then(function(url) {
-                          newPhoto.url = url;
-                        })
-                    })
+                      })
                     .catch(function(err) {
                       console.log('getLocationFromPhotoId error:', err);
                     })
                     .finally(function() {
+                      // console.log('attempting to save', newPhoto);
                       newPhotoRecord = new gbmfImage(newPhoto);
                       newPhotoRecord.save(function(err) {
                         if (err) {
                           console.log('error saving:', err);
                         } else {
-                          // console.log('saved:', newPhoto);
+                          console.log('saved:', newPhoto);
                         }
                       });
                     });

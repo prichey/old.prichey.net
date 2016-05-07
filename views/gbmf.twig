@@ -10,12 +10,13 @@
           data-id="{{ image.id }}"
           data-latitude="{{ image.location.latitude }}"
           data-longitude="{{ image.location.longitude }}" >
-          <img src="{{ image.url }}" alt="" />
+          <img src="{{ image.src }}" alt="" />
           <div class="info">
             <ul class="info-list">
               <li>{{ image.date }}</li>
               <li>lat: {{ image.location.latitude }}</li>
               <li>lng: {{ image.location.longitude }}</li>
+              <li><a href="{{ image.url }}">{{ image.id }}</a></li>
             </ul>
           </div>
         </li>
