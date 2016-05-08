@@ -73,41 +73,45 @@ body.gbmf {
 }
 
 .grid-sizer,
-.gbmf-image {
+.gbmf-image-wrap {
   width: 25%;
 }
 
-.gbmf-image, {
+.gbmf-image-wrap, {
   float: left;
   // display: block;
   // float: left;
   line-height: 0;
   padding: 2px;
+  height: 10vw;
 
-  img {
-    // display: block;
+  .gbmf-image {
     display: block;
     width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
   }
 
-  .info {
+  .gbmf-info {
     display: none;
   }
 
-  .info-list {
+  .gbmf-info-list {
     @extend %naked-list;
   }
 
   &.selected {
     width: 100%;
+    height: 20vw;
 
-    img,
-    .info {
+    .gbmf-image,
+    .gbmf-info {
       width: 50%;
       float: left;
     }
 
-    .info {
+    .gbmf-info {
       padding: 8px;
       display: block;
       line-height: normal;

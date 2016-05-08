@@ -5,21 +5,21 @@
     <div class="gbmf-images-wrap abs-height-padded">
       <ul class="gbmf-images">
         <li class="grid-sizer"></li>
-        {% for image in images %}
-        <li class="gbmf-image"
-          data-id="{{ image.id }}"
-          data-latitude="{{ image.location.latitude }}"
-          data-longitude="{{ image.location.longitude }}" >
-          <img src="{{ image.src }}" alt="" />
-          <div class="info">
-            <ul class="info-list">
-              <li>{{ image.date }}</li>
-              <li>lat: {{ image.location.latitude }}</li>
-              <li>lng: {{ image.location.longitude }}</li>
-              <li><a href="{{ image.url }}">{{ image.id }}</a></li>
-            </ul>
-          </div>
-        </li>
+        {% for image in images if image.complete %}
+          <li class="gbmf-image-wrap"
+            data-id="{{ image.id }}"
+            data-latitude="{{ image.location.latitude }}"
+            data-longitude="{{ image.location.longitude }}">
+            <div class="gbmf-image" style="background-image: url('{{ image.src }}')"></div>
+            <div class="gbmf-info">
+              <ul class="gbmf-info-list">
+                <li>{{ image.date }}</li>
+                <li>lat: {{ image.location.latitude }}</li>
+                <li>lng: {{ image.location.longitude }}</li>
+                <li><a href="{{ image.url }}">{{ image.id }}</a></li>
+              </ul>
+            </div>
+          </li>
         {% endfor %}
       </ul>
     </div>

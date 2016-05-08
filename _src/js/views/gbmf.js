@@ -54,7 +54,7 @@ waitFor('body.gbmf', function() {
       map.panTo(marker.getPosition());
 
       // $(".gbmf-image").removeClass(selectedClass);
-      $selected = $(".gbmf-image[data-id='" + location.id + "']");
+      $selected = $(".gbmf-image-wrap[data-id='" + location.id + "']");
       $selected.click(); // probably should do this another way lol
     });
 
@@ -67,7 +67,7 @@ waitFor('body.gbmf', function() {
 
   var getLocations = function() {
     var locations = [];
-    $('.gbmf-image').each(function(i) {
+    $('.gbmf-image-wrap').each(function(i) {
       var $this = $(this);
       if ($this.data('latitude') && $this.data('longitude') && $this.data('id')) {
         locations.push({
@@ -91,10 +91,10 @@ waitFor('body.gbmf', function() {
 
   var initResultClick = function() {
     // map.setZoom(14);
-    $imageList.on('click tap touch', '.gbmf-image', function() {
-      map.setZoom(6);
+    $imageList.on('click tap touch', '.gbmf-image-wrap', function() {
+      map.setZoom(12);
       var $this = $(this),
-        $results = $('.gbmf-image');
+        $results = $('.gbmf-image-wrap');
 
       if ($this.hasClass(selectedClass)) {
         $this.removeClass(selectedClass);
@@ -125,7 +125,7 @@ waitFor('body.gbmf', function() {
       // alert('images loaded');
       $packeryGrid.packery({
         // options...
-        itemSelector: '.gbmf-image',
+        itemSelector: '.gbmf-image-wrap',
         columnWidth: '.grid-sizer',
         percentPosition: true,
         transitionDuration: 0

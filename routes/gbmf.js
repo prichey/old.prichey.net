@@ -125,19 +125,46 @@ db.once('open', function() {
           }
 
           var photo = result.photo;
+          var returnPhoto = {
+            id: photoId
+          };
 
-          resolve({
-            id: photo.id,
-            location: {
-              latitude: photo.location.latitude,
-              longitude: photo.location.longitude
-            },
-            date: photo.dates.taken,
-            url: photo.urls.url[0]._content,
-          });
+          try {
+            if (!!photo.id) returnPhoto.id = photo.id;
+            if (!!photo.location.latitude && !! photo.location.longitude) {
+              returnPhoto.location = {
+                latitude: photo.location.latitude,
+                longitude: photo.location.longitude
+              }
+            }
+            if (!!photo.dates.taken) returnPhoto.date = photo.dates.taken;
+            if (!!photo.urls.url[0]._content) returnPhoto.url = photo.urls.url[0]._content;
+          }
+
+          catch (e) {
+            console.log('error', e);
+          }
+
+          finally {
+            resolve(returnPhoto);
+          }
         });
       });
     };
+
+    function photoIsComplete(photo) {
+      if (!('id') in photo) return false;
+      if (!('date') in photo) return false;
+      if (!('url') in photo) return false;
+      if (!('src') in photo) return false;
+      if (!('location') in photo) {
+        if (!('id') in photo) return false;
+      } else {
+        if (!('latitude') in photo.location) return false;
+        if (!('longitude') in photo.location) return false;
+      }
+      return true;
+    }
 
     if (error) {
       console.log('error:', error);
@@ -152,13 +179,14 @@ db.once('open', function() {
           photos.forEach(function(photo, index) {
             gbmfImage.find({ id: photo.id})
               .then(function(result) {
-                if (result.length == 0) {
+                if (result.length == 0 || result[0].complete == false) {
                   // console.log('adding new image with id', photo.id);
                   var newPhoto = {};
 
                   getPhotoInfo(photo.id)
                     .then(function(photo) {
-                      newPhoto = photo;
+                      if (!!photo) newPhoto = photo;
+                      else return;
                     })
                     .then(function() {
                       return getSrcFromPhotoId(photo.id)
@@ -166,11 +194,14 @@ db.once('open', function() {
                           newPhoto.src = src;
                         })
                       })
+                    .then(function() {
+                      if (photoIsComplete(newPhoto)) newPhoto.complete = true;
+                    })
                     .catch(function(err) {
                       console.log('getLocationFromPhotoId error:', err);
                     })
                     .finally(function() {
-                      // console.log('attempting to save', newPhoto);
+                      console.log('attempting to save', newPhoto);
                       newPhotoRecord = new gbmfImage(newPhoto);
                       newPhotoRecord.save(function(err) {
                         if (err) {
@@ -181,7 +212,7 @@ db.once('open', function() {
                       });
                     });
                 } else {
-                  // console.log('record found:', result);
+                  console.log('record found:', result);
                 }
               })
           });

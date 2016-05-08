@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 
 var gbmfImageSchema = new mongoose.Schema({
+  complete: Boolean,
   id: String,
   date: String,
   url: String,
