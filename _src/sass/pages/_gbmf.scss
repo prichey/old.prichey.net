@@ -120,9 +120,13 @@ body.gbmf {
 
   .gbmf-info-list {
     @extend %naked-list;
-    font-size: 16px;
+    font-size: 14px;
 
-    @include mq(medium) {
+    @include mq(small) {
+      font-size: 16px;
+    }
+
+    @include mq(large) {
       font-size: 18px;
     }
   }
