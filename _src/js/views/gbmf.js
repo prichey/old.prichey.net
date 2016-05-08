@@ -89,6 +89,22 @@ waitFor('body.gbmf', function() {
     });
   };
 
+  var initMobileResultClick = function() {
+    $imageList.on('click tap touch', '.gbmf-image-wrap', function() {
+      var $this = $(this),
+        $results = $('.gbmf-image-wrap');
+
+      if ($this.hasClass(selectedClass)) {
+        $this.removeClass(selectedClass);
+      } else {
+        $results.removeClass(selectedClass);
+        $this.addClass(selectedClass);
+      }
+
+      $packeryGrid.packery(); // THIS SHOULD NOT HAVE TO HAPPEN
+    });
+  }
+
   var initResultClick = function() {
     // map.setZoom(14);
     $imageList.on('click tap touch', '.gbmf-image-wrap', function() {
@@ -134,12 +150,16 @@ waitFor('body.gbmf', function() {
   }
 
   var init = function() {
+    initPackery();
+    
     if ($(window).width() > 768) {
       initMap();
       initResultClick();
       addMarkers();
-      initPackery();
+    } else {
+      initMobileResultClick();
     }
+
   }
 
   init();

@@ -13,11 +13,25 @@ waitFor('body', function() {
   }
 
   function adjustAbsPadding() {
-    $absMain.css('padding-top', $header.outerHeight(true) - 20);
-    $absMain.css('padding-bottom', $footer.outerHeight(true) - 20);
+    var topPadding, bottomPadding;
+
+    if ($(window).width() > 768) {
+      topPadding = $header.outerHeight(true) - 20;
+      bottomPadding = $footer.outerHeight(true) - 20;
+    } else {
+      topPadding = $header.outerHeight(true);
+      bottomPadding = $footer.outerHeight(true);
+    }
+
+    $absMain.css('padding-top', topPadding);
+    $absMain.css('padding-bottom', bottomPadding);
   }
 
-  adjustMainPadding();
-  adjustAbsPadding();
-  $(window).resize($.throttle(100, adjustMainPadding));
+  function adjustPadding() {
+    adjustMainPadding();
+    adjustAbsPadding();
+  }
+
+  adjustPadding();
+  $(window).resize($.throttle(100, adjustPadding));
 });

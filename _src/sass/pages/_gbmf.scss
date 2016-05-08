@@ -70,11 +70,24 @@ body.gbmf {
   margin: 0;
   @extend %naked-list;
   @include cf;
+
+  @include mq(medium) {
+    margin-top: -2px;
+    margin-bottom: -2px;
+  }
 }
 
 .grid-sizer,
 .gbmf-image-wrap {
-  width: 25%;
+  width: 50%;
+
+  @include mq(small) {
+    width: 25%;
+  }
+
+  @include mq(medium) {
+    width: 25%;
+  }
 }
 
 .gbmf-image-wrap, {
@@ -83,7 +96,15 @@ body.gbmf {
   // float: left;
   line-height: 0;
   padding: 2px;
-  height: 10vw;
+  height: 40vw;
+
+  @include mq(small) {
+    height: 20vw;
+  }
+
+  @include mq(medium) {
+    height: 10vw;
+  }
 
   .gbmf-image {
     display: block;
@@ -99,11 +120,26 @@ body.gbmf {
 
   .gbmf-info-list {
     @extend %naked-list;
+    font-size: 16px;
+
+    @include mq(medium) {
+      font-size: 18px;
+    }
   }
 
   &.selected {
     width: 100%;
-    height: 20vw;
+    height: 40vw;
+
+    @include mq(small) {
+      height: 20vw;
+      width: 50%;
+    }
+
+    @include mq(medium) {
+      height: 20vw;
+      width: 100%;
+    }
 
     .gbmf-image,
     .gbmf-info {
@@ -112,10 +148,11 @@ body.gbmf {
 
     .gbmf-image {
       width: calc(50% - 2px);
+      margin-right: 2px;
     }
 
     .gbmf-info {
-      width: calc(50% + 2px);
+      width: 50%;
       padding: 8px;
       display: block;
       line-height: normal;
