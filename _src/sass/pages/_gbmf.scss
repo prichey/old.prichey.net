@@ -107,11 +107,15 @@ body.gbmf {
 
     .gbmf-image,
     .gbmf-info {
-      width: 50%;
       float: left;
     }
 
+    .gbmf-image {
+      width: calc(50% - 2px);
+    }
+
     .gbmf-info {
+      width: calc(50% + 2px);
       padding: 8px;
       display: block;
       line-height: normal;
