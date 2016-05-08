@@ -11,6 +11,7 @@ module.exports = [
     entries: [
       // views
       './views/home',
+      './views/gbmf',
 
       // modules
       './modules/page'

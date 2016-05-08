@@ -2,6 +2,22 @@
 // Extends & Placeholders
 // ================================
 
+%container {
+    margin: 0 auto;
+	padding-left: rem(20px);
+    padding-right: rem(20px);
+
+    @include mq(small) {
+        padding-left: rem(40px);
+        padding-right: rem(40px);
+    }
+
+    @include mq(large) {
+        padding-left: rem(60px);
+        padding-right: rem(60px);
+    }
+}
+
 // --------------------------------
 // Misc %placeholders
 // --------------------------------

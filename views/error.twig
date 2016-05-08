@@ -1,7 +1,25 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-    <h1>{{ message }}</h1>
-    <h2>{{ error.status }}</h2>
-    <pre>{{ error.stack }}</pre>
+    <section class="error-main container-large">
+        <img class="wizard" src="/images/wizard.gif" alt="pay no attention to the man behind the curtain">
+
+        {% if message %}
+            <h2 class="error-message">{{ message }}</h2>
+        {% endif %}
+
+        {% if error.status %}
+            <h3 class="error-status">{{ error.status }}</h3>
+        {% endif %}
+
+        {% if error.stack %}
+            <pre class="error-stack">{{ error.stack }}</pre>
+        {% endif %}
+    </section>
+{% endblock %}
+
+{% block footer_links %}
+    <ul class="links">
+        <li><a href="/">home</a></li>
+    </ul>
 {% endblock %}
