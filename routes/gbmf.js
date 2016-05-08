@@ -201,7 +201,7 @@ db.once('open', function() {
                       console.log('getLocationFromPhotoId error:', err);
                     })
                     .finally(function() {
-                      console.log('attempting to save', newPhoto);
+                      // console.log('attempting to save', newPhoto);
                       newPhotoRecord = new gbmfImage(newPhoto);
                       newPhotoRecord.save(function(err) {
                         if (err) {
@@ -212,7 +212,7 @@ db.once('open', function() {
                       });
                     });
                 } else {
-                  console.log('record found:', result);
+                  // console.log('record found:', result);
                 }
               })
           });
