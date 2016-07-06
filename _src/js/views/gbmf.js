@@ -1,5 +1,6 @@
 var waitFor = require('waitFor');
 var sassqwatch = require('sassqwatch');
+// var Magnific = require('../lib/jquery.magnific');
 
 waitFor('body.gbmf', function() {
   var map,
@@ -135,6 +136,12 @@ waitFor('body.gbmf', function() {
     });
   };
 
+  var initMagnificLinks = function() {
+    $('.gbmf-info .full').magnificPopup({
+      type: 'image',
+    });
+  }
+
   var initPackery = function() {
     $packeryGrid = $('.gbmf-images').imagesLoaded( function() {
       // init Masonry after all images have loaded
@@ -151,7 +158,8 @@ waitFor('body.gbmf', function() {
 
   var init = function() {
     initPackery();
-    
+    initMagnificLinks();
+
     if ($(window).width() > 768) {
       initMap();
       initResultClick();

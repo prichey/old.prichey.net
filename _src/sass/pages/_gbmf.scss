@@ -116,6 +116,8 @@ body.gbmf {
 
   .gbmf-info {
     display: none;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .gbmf-info-list {

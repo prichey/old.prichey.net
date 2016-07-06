@@ -6,6 +6,7 @@ var gbmfImageSchema = new mongoose.Schema({
   date: String,
   url: String,
   src: String,
+  fullSrc: String,
   location: {
     latitude: Number,
     longitude: Number

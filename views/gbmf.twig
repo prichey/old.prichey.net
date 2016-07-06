@@ -29,7 +29,7 @@
                 <li>{{ image.date }}</li>
                 <li>lat: {{ image.location.latitude }}</li>
                 <li>lng: {{ image.location.longitude }}</li>
-                <li><a href="{{ image.url }}" target="_blank">{{ image.id }}</a></li>
+                <li><a class="full" href="{{ image.fullSrc }}">{{ image.id }}</a></li>
               </ul>
             </div>
           </li>
@@ -46,6 +46,9 @@
   <!-- <script src="https://npmcdn.com/masonry-layout@4.0/dist/masonry.pkgd.min.js"></script> -->
   <script src="https://npmcdn.com/packery@2.0/dist/packery.pkgd.min.js"></script>
   <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.js">
+
+  </script>
 {% endblock %}
 
 {% block footer_links %}

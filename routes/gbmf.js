@@ -99,18 +99,22 @@ db.once('open', function() {
             reject(new Error("Error:" + err));
           }
 
+          var returnObj = {};
+
           var defaultSize = 'Medium';
           preferredSize = preferredSize || defaultSize;
 
           // see if preferred size is in given sizes
           result.sizes.size.forEach(function(size, index) {
-            if (size.label === preferredSize) {
-              resolve(size.source);
+            if (size.label === preferredSize || size.label === 'Original') {
+              returnObj[size.label] = size.source;
             }
           });
 
-          // if not found, return last (highest res) size
-          resolve(result.sizes.size[result.sizes.size.length - 1].source);
+          resolve(returnObj);
+
+          // // if not found, return last (highest res) size
+          // resolve(result.sizes.size[result.sizes.size.length - 1].source);
         });
       });
     };
@@ -157,6 +161,7 @@ db.once('open', function() {
       if (!('date') in photo) return false;
       if (!('url') in photo) return false;
       if (!('src') in photo) return false;
+      if (!('fullSrc') in photo) return false;
       if (!('location') in photo) {
         if (!('id') in photo) return false;
       } else {
@@ -191,7 +196,8 @@ db.once('open', function() {
                     .then(function() {
                       return getSrcFromPhotoId(photo.id)
                         .then(function(src) {
-                          newPhoto.src = src;
+                          newPhoto.src = src['Medium'];
+                          newPhoto.fullSrc = src['Original'];
                         })
                       })
                     .then(function() {
