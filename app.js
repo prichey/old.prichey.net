@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 var routes = require('./routes/index');
 var about = require('./routes/about');
 var projects = require('./routes/projects');
-var gbmf = require('./routes/gbmf');
+// var gbmf = require('./routes/gbmf');
 var test = require('./routes/test');
 var lillies = require('./routes/lillies');
 // var gbmf = require('./routes/gbmf');
@@ -33,7 +33,7 @@ app.use('/about', about);
 app.use('/projects', projects);
 app.use('/test', test);
 app.use('/lillies', lillies);
-app.use('/gbmf', gbmf);
+// app.use('/gbmf', gbmf);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
