@@ -9,9 +9,10 @@ var mongoose = require('mongoose');
 var routes = require('./routes/index');
 var about = require('./routes/about');
 var projects = require('./routes/projects');
+var gbmf = require('./routes/gbmf');
 var test = require('./routes/test');
 var lillies = require('./routes/lillies');
-var gbmf = require('./routes/gbmf');
+// var gbmf = require('./routes/gbmf');
 
 var app = express();
 
