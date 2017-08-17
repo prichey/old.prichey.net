@@ -29,17 +29,21 @@
 </head>
 
 <body class="{{ title }}">
+    {#
     <header class="main-header abs-container">
         <h1 class="name">{{ header }}</h1>
     </header>
+    #}
 
     <main role="main" class="{{ 'root ' ~ title }}">
         {% block content %}{% endblock %}
     </main>
 
+    {#
     <footer class="main-footer abs-container">
         {% block footer_links %}{% endblock %}
     </footer>
+    #}
 
     <script src="js/main.js"></script>
 </body>
